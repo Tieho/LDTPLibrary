@@ -163,6 +163,54 @@ class LDTPKeywords(KeywordGroup):
         except LdtpExecutionError:
             raise LdtpExecutionError("select menu item failed, please check if the input parameters are correct. ")
 
+    def search_row(self, window_name, object_name, row_text, max_pages, search_down):
+        """
+        Search (scroll) for the text. Will not actually select the item, but will bring it to visible area.
+
+        :@参数 window_name: 窗口名称
+
+        :@参数 object_name: 对象名称
+
+        :@参数 row_text: 选择的一行文本行
+
+        :param max_pages: Max pages to search for.
+
+        @type max_pages: integer
+
+        :param search_down: Direction of search (True = down, False = up).
+
+        @type search_down: boolean
+
+        :return: 1 on success.
+
+        Examples:
+
+        |  *Test Cases*  |        *Action*       |    *Argument*   |  *Arguments*  |  *Arguments*  |  *Arguments*  |  *Arguments*   |
+        |  Example_Test  |      Search Row       |  ${window_name} | ${table_name} |   ${row_text} |  ${max_pages} | ${search_down} |
+
+
+        """
+        try:
+            self._info("search row (%s, %s, %s, %d, %d)" % (window_name, object_name, row_text, max_pages, search_down))
+            return ldtp.searchrow(window_name, object_name, row_text, max_pages, search_down)
+        except LdtpExecutionError:
+            raise LdtpExecutionError("search row failed, please check if the input parameters are correct. ")
+
+    def set_max_pages_select_row_searches(self, max_pages):
+        """
+        Set the maximum amount of pages that Select Row will search for the item.
+
+        :param max_pages: Max pages to search for.
+
+        @type max_pages: integer
+
+         """
+        try:
+            self._info("set max pages select row searches (%d)" % (max_pages))
+            return ldtp.setmaxpagesselectrowsearches(max_pages)
+        except LdtpExecutionError:
+            raise LdtpExecutionError("set max pages select row searches failed, please check if the input parameters are correct. ")
+
     def select_row(self, window_name, object_name, row_text):
         """
         [关键字概要] 选择列表中的一行内容.
