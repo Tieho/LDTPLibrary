@@ -38,21 +38,21 @@ class LDTPKeywords(KeywordGroup):
             reload(sys)
             sys.setdefaultencoding('utf-8')
 
-    def launch_app(self, cmd, lang='zh_CN.UTF-8', delay=0, env=1, *args):
+    def launch_app(self, cmd, lang='en_US.UTF-8', delay=0, env=1, *args):
         """
-        [关键字概要] 启动应用程序
+        Launch app
 
-        :@参数 cmd: 应用程序名称, 如gedit, gnome-calculator等。
+        :param cmd:
 
-        :@参数 lang: 语言版本, 'C'表示英文版本, 'zh_CN.UTF-8'表示英文。
+        :param lang:
 
-        :@参数 env: 环境变量
+        :param env:
 
-        :@参数 args: 应用程序参数列表
+        :param args:
 
-        :@参数 delay: 启动延时
+        :param delay:
 
-        :@返回值: 成功或失败, 执行异常时，抛出LdtpExecutionError异常类型, 执行成功返回进程PID.
+        :return:
 
         Examples:
 
@@ -69,13 +69,13 @@ class LDTPKeywords(KeywordGroup):
 
     def click(self, window_name, object_name):
         """
-        [关键字概要] 鼠标点击操作， 点击对象包括radio button/check box/push button/combo box/radio menu item/toggle button.
+        Click object.
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@参数 object_name: 对象名称
+        :param object_name:
 
-        :@返回值: 成功或失败，执行异常时，抛出LdtpExecutionError异常类型
+        :return:
 
         Examples:
 
@@ -93,13 +93,13 @@ class LDTPKeywords(KeywordGroup):
 
     def get_text_value(self, window_name, object_name):
         """
-        *[关键字概要]* 获取Text文本框内容
+        Get text value.
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@参数 object_name: 对象名称
+        :param object_name:
 
-        :@返回值: 文本框内容
+        :return:
 
         *Examples*:
 
@@ -116,15 +116,15 @@ class LDTPKeywords(KeywordGroup):
 
     def set_text_value(self, window_name, object_name, data):
         """
-        [关键字概要] 设置Text文本框内容
+        Set text value.
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@参数 object_name: 对象名称
+        :param object_name:
 
-        :@参数 data: 要设置的内容
+        :param data:
 
-        :@返回值: 成功或失败
+        :return:
 
         Examples:
 
@@ -142,13 +142,13 @@ class LDTPKeywords(KeywordGroup):
 
     def select_menu_item(self, window_name, object_name):
         """
-        [关键字概要] 选择菜单栏, 菜单栏可以以`;`符号表示层级， 如mnuFile;mnuNew
+        Select menu item. For example: mnuFile;mnuNew
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@参数 object_name: 对象名称
+        :param object_name:
 
-        :@返回值: 成功或失败
+        :return:
 
 
         Examples:
@@ -169,11 +169,11 @@ class LDTPKeywords(KeywordGroup):
         """
         Search (scroll) for the text. Will not actually select the item, but will bring it to visible area.
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@参数 object_name: 对象名称
+        :param object_name:
 
-        :@参数 row_text: 选择的一行文本行
+        :param row_text:
 
         :param max_pages: Max pages to search for.
 
@@ -215,15 +215,15 @@ class LDTPKeywords(KeywordGroup):
 
     def select_row(self, window_name, object_name, row_text):
         """
-        [关键字概要] 选择列表中的一行内容.
+        Select row.
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@参数 object_name: 对象名称
+        :param object_name:
 
-        :@参数 row_text: 选择的一行文本行
+        :param row_text:
 
-        :@返回值: 1 on success.
+        :return: 1 on success.
 
         Examples:
 
@@ -240,11 +240,11 @@ class LDTPKeywords(KeywordGroup):
 
     def activate_window(self, window_name):
         """
-        [关键字概要] 使用wnck机制激活一个窗口
+        Activate window.
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@返回值: 1 on success.
+        :return: 1 on success.
 
         Examples:
 
@@ -260,13 +260,13 @@ class LDTPKeywords(KeywordGroup):
 
     def gui_exist(self, window_name, object_name=''):
         """
-        [关键字概要] 检查窗口或者组件对象是否存在
+        Does gui exist?
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@参数 object_name: 对象名称
+        :param object_name:
 
-        :@返回值: 存在返回 1,不存在返回 0
+        :return: 1 if gui exists and 0 if gui doesn't exist
 
         Examples:
 
@@ -345,11 +345,11 @@ class LDTPKeywords(KeywordGroup):
 
     def close_window(self, window_name=''):
         """
-        [关键字概要] 关闭窗口
+        Close window
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@返回值: 1 on success.
+        :return: 1 on success.
 
 
         Examples:
@@ -572,13 +572,13 @@ class LDTPKeywords(KeywordGroup):
 
     def object_exist(self, window_name, object_name):
         """
-        [关键字概要] 判断窗口是否存在
+        Does object exist?
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@参数 object_name: 对象名称
+        :param object_name:
 
-        :@返回值: 1 on success, 0 on failure
+        :return: 1 on success, 0 on failure
 
         Examples:
 
@@ -743,15 +743,15 @@ class LDTPKeywords(KeywordGroup):
 
     def get_object_property(self, window_name, object_name, property_name):
         """
-        [关键字概要] 获取一个对象的属性值
+        获取一个对象的属性值
 
-        :@参数 window_name: 窗口名称
+        :param window_name:
 
-        :@参数 object_name: 对象名称
+        :param object_name:
 
-        :@参数 property_name: 属性名称
+        :param property_name:
 
-        :@返回值: 属性值字符串
+        :return: value of property
 
         Examples:
 
@@ -770,11 +770,11 @@ class LDTPKeywords(KeywordGroup):
         [Description] Double clicks the row in table whose first column's(0th column) value
         is same as the contents of the third argument in the function call.
 
-        :@参数 window_name:
+        :param window_name:
 
-        :@参数 object_name:
+        :param object_name:
 
-        :@返回值: 1 on success, else 0
+        :return: 1 on success, else 0
 
         Examples:
 
@@ -790,13 +790,13 @@ class LDTPKeywords(KeywordGroup):
 
     def get_all_states(self, window_name, object_name):
         """
-        [关键字概要] 获取指定对象的所有状态
+        Get all states of object
 
-        :@参数 window_name: 窗口名称
+        :param window_name: window name
 
-        :@参数 object_name: 对象名称
+        :param object_name: object name
 
-        :@返回值: 状态列表
+        :return: list of states
 
         Examples:
 
@@ -834,11 +834,11 @@ class LDTPKeywords(KeywordGroup):
 
     def state_enabled(self, window_name, component_name):
         """
-        [关键字概要] Checks the radio button object state enabled or not
+        Checks the radio button object state enabled or not
 
-        :param window_name: 窗口名称
+        :param window_name:
 
-        :param component_name: 组件名称
+        :param component_name:
 
         :return: 1 if state is enabled, else 0.
 
@@ -851,9 +851,9 @@ class LDTPKeywords(KeywordGroup):
 
     def menu_item_enabled(self, window_name, menu_item):
         """
-        [关键字概要] Verify whether a menu is enabled or not
+        Verify whether a menu is enabled or not
 
-        :param window_name: 窗口名称
+        :param window_name:
 
         :param menu_item: 菜单名
 
@@ -867,11 +867,11 @@ class LDTPKeywords(KeywordGroup):
 
     def combo_select(self, window_name, component_name, item_name):
         """
-        [关键字概要] Select a menu item or list item in a combo box based on name
+        Select a menu item or list item in a combo box based on name
 
-        :param window_name: 窗口名称
+        :param window_name:
 
-        :param component_name: 组件名称
+        :param component_name:
 
         :param item_name: menu item or list item
 
@@ -1040,7 +1040,7 @@ class LDTPKeywords(KeywordGroup):
         Please not that the <application-name> should be same as the one given as the commmand-line argument
          for appmap generation.
 
-        :param window_name: 窗口名称
+        :param window_name:
 
         :return:
 
@@ -1426,7 +1426,7 @@ class LDTPKeywords(KeywordGroup):
         """
         Checks whether the status bar object is visible or not
 
-        :param window_name: 窗口名称
+        :param window_name:
 
         :param status_bar_name: 状态栏名称
 
@@ -1442,7 +1442,7 @@ class LDTPKeywords(KeywordGroup):
         """
         Verifies whether the toolbar button count matches with the argument count. 1 based index.
 
-        :param window_name: 窗口名称
+        :param window_name:
 
         :param toolbar_name: 工具栏名称
 
