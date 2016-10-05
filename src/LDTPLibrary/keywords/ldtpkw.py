@@ -810,6 +810,28 @@ class LDTPKeywords(KeywordGroup):
         except LdtpExecutionError:
             raise LdtpExecutionError("get all states failed")
 
+    def get_all_item(self, window_name, object_name):
+        """
+        Get all items of combo box
+
+        :param window_name: window name
+
+        :param object_name: combo box name
+
+        :return list of combo box item
+
+        Examples:
+
+        |  *Test Cases*  |      *Returns*     |    *Action*      |    *Argument*   |    *Argument*   |
+        |  Example_Test  |    @{item_list}=   |  Get All Item    |  ${window_name} |  ${object_name} |
+
+        """
+        try:
+            self._info("Get all items of given combo box (%s, %s)" % (window_name, object_name))
+            return ldtp.getallitem(window_name, object_name)
+        except LdtpExecutionError:
+            raise LdtpExecutionError("get all item failed")
+
     def state_enabled(self, window_name, component_name):
         """
         [关键字概要] Checks the radio button object state enabled or not
