@@ -1202,6 +1202,58 @@ class LDTPKeywords(KeywordGroup):
         except LdtpExecutionError as e:
             raise LdtpExecutionError(e.message)
 
+    def right_click(self, window_name, object_name, text):
+        """
+        Mouse right click on an table item.
+
+        @param window_name: Window name to look for, either full name,
+        LDTP's name convention, or a Unix glob.
+
+        @type window_name: string
+
+        @param object_name: Object name to look for, either full name,
+        LDTP's name convention, or a Unix glob. Or menu heirarchy
+
+        @param text: Text of table item
+
+        @type object_name: string
+
+        @return: 1 on success.
+
+        @rtype: integer
+        """
+        try:
+            self._info("Mouse right click on an table item")
+            return ldtp.rightclick(window_name, object_name, text)
+        except LdtpExecutionError as e:
+            raise LdtpExecutionError(e.message)
+
+    def expand_collapse_click(self, window_name, object_name, text):
+        """
+        Click on expand/collapse icon of tree item.
+
+        @param window_name: Window name to look for, either full name,
+        LDTP's name convention, or a Unix glob.
+
+        @type window_name: string
+
+        @param object_name: Object name to look for, either full name,
+        LDTP's name convention, or a Unix glob. Or menu heirarchy
+
+        @param text: Text of tree item
+
+        @type object_name: string
+
+        @return: 1 on success.
+
+        @rtype: integer
+        """
+        try:
+            self._info("Click on expand/collapse object")
+            return ldtp.expandcollapseclick(window_name, object_name, text)
+        except LdtpExecutionError as e:
+            raise LdtpExecutionError(e.message)
+
     def mouse_move(self, window_name, object_name):
         """
         Mouse move on an object.
