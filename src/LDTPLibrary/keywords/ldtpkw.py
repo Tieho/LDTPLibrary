@@ -387,6 +387,24 @@ class LDTPKeywords(KeywordGroup):
         except LdtpExecutionError:
             raise LdtpExecutionError("get window size failed!")
 
+    def get_column_count(self, window_name, object_name):
+        """
+        Description: Get count of columns in table object.
+
+        :param window_name: Window name to look for, either full name,
+        LDTP's name convention, or a Unix glob.
+
+        :param object_name: Object name to look for, either full name,
+        LDTP's name convention, or a Unix glob. Or menu heirarchy
+
+        :return: Number of columns.
+        """
+        try:
+            self._info("get column count of table [%s, %s]" % (window_name, object_name))
+            return ldtp.getcolumncount(window_name, object_name)
+        except LdtpExecutionError:
+            raise LdtpExecutionError("get column count of table failed")
+
     def get_row_count(self, window_name, object_name):
         """
         Description: Get count of rows in table object.
@@ -402,8 +420,8 @@ class LDTPKeywords(KeywordGroup):
         try:
             self._info("get row count of table [%s, %s]" % (window_name, object_name))
             return ldtp.getrowcount(window_name, object_name)
-        except LdtpExecutionError:
-            raise LdtpExecutionError("get row count of table failed")
+        except LdtpExecutionError as e:
+            raise LdtpExecutionError("get row count of table failed: " + str(e))
 
     def maximize_window(self, window_name=None):
         """
@@ -767,8 +785,7 @@ class LDTPKeywords(KeywordGroup):
 
     def double_click(self, window_name, object_name):
         """
-        [Description] Double clicks the row in table whose first column's(0th column) value
-        is same as the contents of the third argument in the function call.
+        [Description] Double clicks the object.
 
         :param window_name:
 
@@ -787,6 +804,28 @@ class LDTPKeywords(KeywordGroup):
             return ldtp.doubleclick(window_name, object_name)
         except LdtpExecutionError:
             raise LdtpExecutionError("Double Click failed")
+
+    def triple_click(self, window_name, object_name):
+        """
+        [Description] Triple clicks the object.
+
+        :param window_name:
+
+        :param object_name:
+
+        :return: 1 on success, else 0
+
+        Examples:
+
+        |  *Test Cases*  |      *Returns*     |    *Action*      |    *Argument*   |    *Argument*   |
+        |  Example_Test  |    ${exec_status}= |   Triple Click   |  ${window_name} |  ${object_name} |
+
+        """
+        try:
+            self._info("triple click the mouse")
+            return ldtp.tripleclick(window_name, object_name)
+        except LdtpExecutionError:
+            raise LdtpExecutionError("Triple Click failed")
 
     def get_all_states(self, window_name, object_name):
         """
@@ -1118,7 +1157,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("get window list ")
             return ldtp.getwindowlist()
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def get_object_list(self, window_name):
         """
@@ -1137,7 +1176,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("get object list of (%s)" % window_name)
             return ldtp.getobjectlist(window_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def get_object_name_at_coords(self, wait=5):
         """
@@ -1152,7 +1191,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("get object name at the mouse coordinates ")
             return ldtp.getobjectnameatcoords(wait)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def mouse_left_click(self, window_name, object_name):
         """
@@ -1176,7 +1215,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Mouse left click on an object")
             return ldtp.mouseleftclick(window_name, object_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def mouse_right_click(self, window_name, object_name):
         """
@@ -1200,59 +1239,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Mouse right click on an object")
             return ldtp.mouserightclick(window_name, object_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
-
-    def right_click(self, window_name, object_name, text):
-        """
-        Mouse right click on an table item.
-
-        @param window_name: Window name to look for, either full name,
-        LDTP's name convention, or a Unix glob.
-
-        @type window_name: string
-
-        @param object_name: Object name to look for, either full name,
-        LDTP's name convention, or a Unix glob. Or menu heirarchy
-
-        @param text: Text of table item
-
-        @type object_name: string
-
-        @return: 1 on success.
-
-        @rtype: integer
-        """
-        try:
-            self._info("Mouse right click on an table item")
-            return ldtp.rightclick(window_name, object_name, text)
-        except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
-
-    def expand_collapse_click(self, window_name, object_name, text):
-        """
-        Click on expand/collapse icon of tree item.
-
-        @param window_name: Window name to look for, either full name,
-        LDTP's name convention, or a Unix glob.
-
-        @type window_name: string
-
-        @param object_name: Object name to look for, either full name,
-        LDTP's name convention, or a Unix glob. Or menu heirarchy
-
-        @param text: Text of tree item
-
-        @type object_name: string
-
-        @return: 1 on success.
-
-        @rtype: integer
-        """
-        try:
-            self._info("Click on expand/collapse object")
-            return ldtp.expandcollapseclick(window_name, object_name, text)
-        except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def mouse_move(self, window_name, object_name):
         """
@@ -1276,7 +1263,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Mouse move on object (%s) " % object_name)
             return ldtp.mousemove(window_name, object_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def simulate_mouse_move(self, source_x, source_y, dest_x, dest_y, delay=0.0):
         """
@@ -1308,7 +1295,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("simulate mouse move from (%d, %d) to (%d, %d)" % (source_x, source_y, dest_x, dest_y))
             return ldtp.simulatemousemove(source_x, source_y, dest_x, dest_y, delay)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def get_tab_count(self, window_name, object_name):
         """
@@ -1332,7 +1319,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Get tab count (%s, %s)" % (window_name, object_name))
             return ldtp.gettabcount(window_name, object_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def get_tab_name(self, window_name, object_name, tab_index):
         """
@@ -1360,7 +1347,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("get tab name (%s, %s, %d)" % (window_name, object_name, tab_index))
             return ldtp.gettabname(window_name, object_name, tab_index)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def select_index(self, window_name, object_name, item_index):
         """
@@ -1388,7 +1375,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("select combo box item or layered pane based on index")
             return ldtp.selectindex(window_name, object_name, item_index)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     # Since selectindex and comboselectindex implementation are same,
     # for backward compatibility let us assign selectindex to comboselectindex
@@ -1420,7 +1407,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Select combo box / layered pane item")
             return ldtp.selectitem(window_name, object_name, item_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def get_combo_value(self, window_name, object_name):
         """
@@ -1444,7 +1431,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Get current selected combobox value (%s-->%s)" % (window_name, object_name))
             return ldtp.getcombovalue(window_name, object_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def verify_select(self, window_name, object_name, item_name):
         """
@@ -1472,7 +1459,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Verify the item selected in combo box (%s-->%s[:%s])" % (window_name, object_name, item_name))
             return ldtp.verifyselect(window_name, object_name, item_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def verify_statusbar_visible(self, window_name, status_bar_name):
         """
@@ -1488,7 +1475,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("check whether the status bar (%s-->%s) is visible or not" % (window_name, status_bar_name))
             return ldtp.verifystatusbarvisible(window_name, status_bar_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def verify_button_count(self, window_name, toolbar_name, count):
         """
@@ -1508,7 +1495,7 @@ class LDTPKeywords(KeywordGroup):
                        (window_name, toolbar_name, count))
             return ldtp.verifybuttoncount(window_name, toolbar_name, count)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     verify_visible_button_count = verify_button_count
 
@@ -1539,7 +1526,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("check menu item exist (%s-->%s)" % (window_name, object_name))
             return ldtp.doesmenuitemexist(window_name, object_name, strict_hierarchy)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def list_sub_menus(self, window_name, object_name):
         """
@@ -1563,7 +1550,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("list children of menu item (%s-->%s)" % (window_name, object_name))
             return ldtp.listsubmenus(window_name, object_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def invoke_menu(self, window_name, object_name):
         """
@@ -1588,7 +1575,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Invoke menu item (%s-->%s)" % (window_name, object_name))
             return ldtp.invokemenu(window_name, object_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def get_slider_value(self, window_name, object_name):
         """
@@ -1613,7 +1600,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Get slider value (%s, %s)" % (window_name, object_name))
             return ldtp.getslidervalue(window_name, object_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def increase(self, window_name, object_name, iterations):
         """
@@ -1638,7 +1625,7 @@ class LDTPKeywords(KeywordGroup):
             self._info("Increase slider value (%s, %s)" % (window_name, object_name))
             return ldtp.increase(window_name, object_name, iterations)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def decrease(self, window_name, object_name, iterations):
         """
@@ -1663,4 +1650,4 @@ class LDTPKeywords(KeywordGroup):
             self._info("Decrease slider value (%s, %s)" % (window_name, object_name))
             return ldtp.decrease(window_name, object_name, iterations)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
