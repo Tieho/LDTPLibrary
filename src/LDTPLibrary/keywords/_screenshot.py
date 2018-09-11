@@ -139,13 +139,23 @@ class ScreenshotKeywords(KeywordGroup):
     def _restore_screenshot_directory(self):
         self.screenshot_root_directory = self._screenshot_path_stack.pop()
 
-    def _get_screenshot_paths(self, filename):
+    def _get_screenshot_paths_orig(self, filename):
         filename = filename.format(
                 index=self._get_screenshot_index(filename))
         filename = filename.replace('/', os.sep)
         screenshotdir = self._get_screenshot_directory()
         logdir = self._get_log_dir()
         path = os.path.join(screenshotdir, filename)
+        link = robot.utils.get_link_path(path, logdir)
+        return path, link
+
+    def _get_screenshot_paths(self, filename):
+        filename = filename.format(
+                index=self._get_screenshot_index(filename))
+        filename = filename.replace('/', os.sep)
+        screenshotdir = self._get_screenshot_directory()
+        logdir = self._get_log_dir()
+        path = os.path.join(logdir + os.sep + screenshotdir, filename)
         link = robot.utils.get_link_path(path, logdir)
         return path, link
 
