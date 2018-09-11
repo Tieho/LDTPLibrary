@@ -70,7 +70,7 @@ class TableKeywords(KeywordGroup):
             self._info("select row partial match (%s, %s, %s) " % (window_name, object_name, row_text))
             return ldtp.selectrowpartialmatch(window_name, object_name, row_text)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def multi_select(self, window_name, object_name, row_text_list,
                      partial_match=False):
@@ -94,7 +94,7 @@ class TableKeywords(KeywordGroup):
             self._info("multi select  (%s, %s, %s) " % (window_name, object_name, row_text_list))
             return ldtp.multiselect(window_name, object_name, row_text_list)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def multi_remove(self, window_name, object_name, row_text_list,
                      partial_match=False):
@@ -120,7 +120,7 @@ class TableKeywords(KeywordGroup):
             self._info("multi remove  (%s, %s, %s) " % (window_name, object_name, row_text_list))
             return ldtp.multiremove(window_name, object_name, row_text_list)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def select_row_index(self, window_name, object_name, row_index):
         """
@@ -142,7 +142,7 @@ class TableKeywords(KeywordGroup):
             self._info("select row index (%s, %s, %d)" % (window_name, object_name, row_index))
             return ldtp.selectrowindex(window_name, object_name, row_index)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def select_last_row(self, window_name, object_name):
         """
@@ -162,7 +162,7 @@ class TableKeywords(KeywordGroup):
             self._info("select last row of (%s, %s)" % (window_name, object_name))
             return ldtp.selectlastrow(window_name, object_name)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def set_cell_value(self, window_name, object_name, row_index,
                        column=0, data=None):
@@ -190,7 +190,7 @@ class TableKeywords(KeywordGroup):
             self._info("set cell value (%s, %s, data=%s)" % (window_name, object_name, data))
             return ldtp.setcellvalue(window_name, object_name, row_index, column, data)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def get_cell_value(self, window_name, object_name, row_index, column=0):
         """
@@ -214,7 +214,7 @@ class TableKeywords(KeywordGroup):
             self._info("get cell value (%s, %s, %d)" % (window_name, object_name, row_index))
             return ldtp.getcellvalue(window_name, object_name, row_index, column)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def get_cell_size(self, window_name, object_name, row_index, column=0):
         """
@@ -238,7 +238,7 @@ class TableKeywords(KeywordGroup):
             self._info("get cell size (%s, %s, %d)" % (window_name, object_name, row_index))
             return ldtp.getcellsize(window_name, object_name, row_index, column)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def right_click(self, window_name, object_name, row_text):
         """
@@ -260,7 +260,7 @@ class TableKeywords(KeywordGroup):
             self._info("right click row object (%s, %s, %s)" % (window_name, object_name, row_text))
             return ldtp.rightclick(window_name, object_name, row_text)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def check_row(self, window_name, object_name, row_index, column=0):
         """
@@ -284,7 +284,7 @@ class TableKeywords(KeywordGroup):
             self._info("check row at (%s, %s, %d)" % (window_name, object_name, row_index))
             return ldtp.checkrow(window_name, object_name, row_index, column)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def expand_table_cell(self, window_name, object_name, row_index, column=0):
         """
@@ -305,10 +305,10 @@ class TableKeywords(KeywordGroup):
         @rtype: string
         """
         try:
-            self._info("expend table cell at (%s, %s, %d)" % (window_name, object_name, row_index))
-            return ldtp.expendtablecell(window_name, object_name, row_index, column)
+            self._info("expand table cell at (%s, %s, %d)" % (window_name, object_name, row_index))
+            return ldtp.expandtablecell(window_name, object_name, row_index, column)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def uncheck_row(self, window_name, object_name, row_index, column=0):
         """
@@ -332,7 +332,7 @@ class TableKeywords(KeywordGroup):
             self._info("uncheck row at (%s, %s, %d)" % (window_name, object_name, row_index))
             return ldtp.uncheckrow(window_name, object_name, row_index, column)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def get_table_row_index(self, window_name, object_name, row_text):
         """
@@ -354,7 +354,7 @@ class TableKeywords(KeywordGroup):
             self._info("get table row with index (%s, %s, %s)" % (window_name, object_name, row_text))
             return ldtp.gettablerowindex(window_name, object_name, row_text)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def single_click_row(self, window_name, object_name, row_text):
         """
@@ -376,7 +376,7 @@ class TableKeywords(KeywordGroup):
             self._info("single click row (%s, %s, %s)" % (window_name, object_name, row_text))
             return ldtp.singleclickrow(window_name, object_name, row_text)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def double_click_row(self, window_name, table_name, row_text):
         """
@@ -421,7 +421,7 @@ class TableKeywords(KeywordGroup):
             self._info("verify table cell text ")
             return ldtp.verifytablecell(window_name, object_name, row_index, column_index, row_text)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def does_row_exist(self, window_name, object_name, row_text,
                        partial_match=False):
@@ -446,7 +446,7 @@ class TableKeywords(KeywordGroup):
             self._info("Does row exist (%s, %s, %s)" % (window_name, object_name, row_text))
             return ldtp.doesrowexist(window_name, object_name, row_text, partial_match)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
 
     def verify_partial_table_cell(self, window_name, object_name, row_index,
                                   column_index, row_text):
@@ -473,4 +473,4 @@ class TableKeywords(KeywordGroup):
             self._info("verify partial table cell ...")
             return ldtp.verifypartialtablecell(window_name, object_name, row_index, column_index, row_text)
         except LdtpExecutionError as e:
-            raise LdtpExecutionError(e.message)
+            raise LdtpExecutionError(str(e))
